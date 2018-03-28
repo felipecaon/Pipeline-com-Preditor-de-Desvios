@@ -31,10 +31,11 @@ public:
     LeituraASM(const string &nomeArquivo);
 
     //recebe o valor da linha atual do arquivo
-    void analizarLinha(int linha);
+    bool analizarLinha(int linha);
 
     //ler strings da linha atual
     string lerDadosLinha(int posicao);
+
 
 };
 
