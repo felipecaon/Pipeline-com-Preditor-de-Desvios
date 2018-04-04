@@ -13,11 +13,13 @@ int main() {
     while (!arquivo.fetch(PC)) {
         flag = false;
         arquivo.decode(arquivo);
-        arquivo.execute();
         if(arquivo.passo_execute.opCode == "j"){
-            PC = PC + arquivo.getRAuxiliares()[0];
+            PC = arquivo.getRAuxiliares()[0];
+            arquivo.fetch(PC);
+            arquivo.decode(arquivo);
             flag = true;
         }
+        arquivo.execute();
         arquivo.memoria();
         arquivo.WriteBack();
         if(flag == false){
