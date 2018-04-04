@@ -41,24 +41,27 @@ public:
     LeituraASM(const string &nomeArquivo);
 
     //recebe o valor da linha atual do arquivo
-    bool analizarLinha(int linha);
+    bool fetch(int linha);
 
     //ler strings da linha atual
     string lerDadosLinha(int posicao);
 
+    //decode na linha a fim de isolar OPCode, Op1, Op2 e OP3
+    void decode(LeituraASM &arq);
 
-    void decode(struct instr& str, LeituraASM &arq);
-
+    //executa comandos de acordo com instrução e grava seus elementos em um registrador temporário
     void execute();
 
+    //faz nada
     void memoria();
 
+    //escreve o resultado da operação no registrador final
     void WriteBack();
 
+
+    //método auxiliares
     void zerarRegsAuxs();
-
     const int *getRAuxiliares() const;
-
     const int *getR() const;
 
 };

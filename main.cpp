@@ -8,10 +8,8 @@ int main() {
 
     LeituraASM arquivo("teste2.txt");
 
-    while (!arquivo.analizarLinha(PC)) {
-
-
-        arquivo.decode(arquivo.passo_search, arquivo);
+    while (!arquivo.fetch(PC)) {
+        arquivo.decode(arquivo);
         arquivo.execute();
         arquivo.memoria();
         arquivo.WriteBack();

@@ -13,7 +13,7 @@ const string &LeituraASM::getLinhaASerLida() const {
     return linhaASerLida;
 }
 
-bool LeituraASM::analizarLinha(int linha) {
+bool LeituraASM::fetch(int linha) {
     int i = 0;
     if (arquivo.is_open()) {
         //busca linha a ser de acordo com o valor do PC
@@ -45,29 +45,29 @@ string LeituraASM::lerDadosLinha(int posicao) {
     }
 }
 
-void LeituraASM::decode(struct instr& str, LeituraASM &arq) {
+void LeituraASM::decode(LeituraASM &arq) {
 
     zerarRegsAuxs();
 
     if (arq.lerDadosLinha(0).find(':') != string::npos) {
-        str.hasLabel = true;
-        str.opCode = arq.lerDadosLinha(1);
-        str.Op1 = arq.lerDadosLinha(2);
-        str.Op2 = arq.lerDadosLinha(3);
-        str.Op3 = arq.lerDadosLinha(4);
+        passo_search.hasLabel = true;
+        passo_search.opCode = arq.lerDadosLinha(1);
+        passo_search.Op1 = arq.lerDadosLinha(2);
+        passo_search.Op2 = arq.lerDadosLinha(3);
+        passo_search.Op3 = arq.lerDadosLinha(4);
     } else {
-        str.hasLabel = false;
-        str.opCode = arq.lerDadosLinha(0);
-        str.Op1 = arq.lerDadosLinha(1);
-        str.Op2 = arq.lerDadosLinha(2);
-        str.Op3 = arq.lerDadosLinha(3);
+        passo_search.hasLabel = false;
+        passo_search.opCode = arq.lerDadosLinha(0);
+        passo_search.Op1 = arq.lerDadosLinha(1);
+        passo_search.Op2 = arq.lerDadosLinha(2);
+        passo_search.Op3 = arq.lerDadosLinha(3);
     }
 
     RAuxiliares[0] = stoi(passo_search.Op1);
     RAuxiliares[1] = stoi(passo_search.Op2);
     RAuxiliares[2] = stoi(passo_search.Op3);
 
-    passo_decode = str;
+    passo_decode = passo_search;
 
 
 
