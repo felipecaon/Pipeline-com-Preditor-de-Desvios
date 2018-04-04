@@ -1,17 +1,8 @@
 #include <iostream>
 #include "LeituraASM.h"
 
-//struct para instrucoes
-struct instr {
-    string opCode, Op1, Op2, Op3;
-    int valido;
-} estagio[5];
-
-//variaveis auxiliares
+//variaveis globais
 int PC = 1;
-unsigned int R[32];
-int RAuxiliares[2];
-
 
 int main() {
 
@@ -19,22 +10,18 @@ int main() {
 
     while (!arquivo.analizarLinha(PC)) {
 
-        cout << PC << endl;
-        if (arquivo.lerDadosLinha(0).find(':') != string::npos) {
-            estagio[0].opCode = arquivo.lerDadosLinha(1);
-            estagio[0].Op1 = arquivo.lerDadosLinha(2);
-            estagio[0].Op2 = arquivo.lerDadosLinha(3);
-            estagio[0].Op3 = arquivo.lerDadosLinha(4);
-        } else {
-            estagio[0].opCode = arquivo.lerDadosLinha(0);
-            estagio[0].Op1 = arquivo.lerDadosLinha(1);
-            estagio[0].Op2 = arquivo.lerDadosLinha(2);
-            estagio[0].Op3 = arquivo.lerDadosLinha(3);
-        }
+
+        arquivo.decode(arquivo.passo_search, arquivo);
+        arquivo.execute();
+        arquivo.memoria();
+        arquivo.WriteBack();
         PC++;
-        cout << "OpCode: " << estagio[0].opCode << endl
-             << "Op1: " << estagio[0].Op1 << endl
-             << "Op2: " << estagio[0].Op2 << endl
-             << "Op3: " << estagio[0].Op3 << endl;
     }
+
+
+    cout << arquivo.getR()[2] << endl << endl;
+    cout << arquivo.getR()[6] << endl << endl;
+    cout << arquivo.getR()[12] << endl << endl;
+    cout << arquivo.getR()[15] << endl << endl;
+
 }
