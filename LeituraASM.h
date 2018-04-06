@@ -32,7 +32,7 @@ public:
 
     struct instr {
         bool hasLabel = false;
-        string opCode, Op1, Op2, Op3;
+        string opCode = "", Op1, Op2, Op3;
         bool valido = false;
     } passo_search, passo_decode, passo_execute, passo_memory, passo_register;
 
@@ -45,13 +45,13 @@ public:
     LeituraASM(const string &nomeArquivo);
 
     //recebe o valor da linha atual do arquivo
-    bool fetch(int linha);
+    bool fetch(int linha, LeituraASM &arq);
 
     //ler strings da linha atual
     string lerDadosLinha(int posicao);
 
     //decode na linha a fim de isolar OPCode, Op1, Op2 e OP3
-    void decode(LeituraASM &arq);
+    void decode();
 
     //executa comandos de acordo com instrução e grava seus elementos em um registrador temporário
     void execute();

@@ -13,7 +13,7 @@ const string &LeituraASM::getLinhaASerLida() const {
     return linhaASerLida;
 }
 
-bool LeituraASM::fetch(int linha) {
+bool LeituraASM::fetch(int linha, LeituraASM &arq) {
     int i;
     if (arquivo.is_open()) {
         //busca linha a ser lida de acordo com o valor do PC
@@ -21,7 +21,11 @@ bool LeituraASM::fetch(int linha) {
             getline(arquivo, linhaASerLida);
             if (linhaASerLida.empty()) {
                 j++;
-                return j > 9;
+                infos.clear();
+                for(int p = 1; p <= 5; p++) {
+                    infos.push_back("");
+                }
+                return j > 3;
 
             }
         }
@@ -38,20 +42,6 @@ bool LeituraASM::fetch(int linha) {
             infos.push_back(subs);
         } while (iss);
     }
-}
-
-string LeituraASM::lerDadosLinha(int posicao) {
-    int i = 0;
-    for (auto it = infos.begin(); it != infos.end(); it++, i++) {
-        if (i == posicao) {
-            return *it;
-        }
-    }
-}
-
-void LeituraASM::decode(LeituraASM &arq) {
-
-    zerarRegsAuxs();
 
     if (arq.lerDadosLinha(0).find(':') != string::npos) {
         passo_search.hasLabel = true;
@@ -66,6 +56,20 @@ void LeituraASM::decode(LeituraASM &arq) {
         passo_search.Op2 = arq.lerDadosLinha(2);
         passo_search.Op3 = arq.lerDadosLinha(3);
     }
+}
+
+string LeituraASM::lerDadosLinha(int posicao) {
+    int i = 0;
+    for (auto it = infos.begin(); it != infos.end(); it++, i++) {
+        if (i == posicao) {
+            return *it;
+        }
+    }
+}
+
+void LeituraASM::decode() {
+
+    zerarRegsAuxs();
 
     RAuxiliares[0] = stoi(passo_search.Op1);
     RAuxiliares[1] = stoi(passo_search.Op2);
