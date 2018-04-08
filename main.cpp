@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "LeituraASM.h"
 
 //variaveis globais
@@ -7,10 +8,15 @@ int contInstr = 0;
 
 int main() {
 
-    LeituraASM arquivo("teste2.txt");
+    LeituraASM arquivo("/home/felipe/Documentos/teste.txt");
 
-    while (!arquivo.fetch(PC,arquivo)) {
-        //cout << arquivo.passo_search.opCode << arquivo.passo_decode.opCode << arquivo.passo_execute.opCode << arquivo.passo_memory.opCode << arquivo.passo_register.opCode << endl;
+    cout << setw(7) << "Fetch" << setw(14) << "Decode" << setw(14) << "Execute" << setw(14) << "Memory" << setw(14) << "WriteBack" << endl;
+    cout << setw(7) << "-----------------------------------------------------------------" << endl;
+
+    while (contInstr < 8) {
+        arquivo.fetch(PC,arquivo);
+        cout << setw(7) << arquivo.passo_search.opCode << setw(14) << arquivo.passo_decode.opCode << setw(14) << arquivo.passo_execute.opCode << setw(14) << arquivo.passo_memory.opCode << setw(14) << arquivo.passo_register.opCode << endl;
+        cout << setw(7) << "-----------------------------------------------------------------" << endl;
         arquivo.WriteBack();
         arquivo.memoria();
         arquivo.execute();

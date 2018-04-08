@@ -13,20 +13,17 @@ const string &LeituraASM::getLinhaASerLida() const {
     return linhaASerLida;
 }
 
-bool LeituraASM::fetch(int linha, LeituraASM &arq) {
-    int i;
+void LeituraASM::fetch(int linha, LeituraASM &arq) {
     if (arquivo.is_open()) {
         //busca linha a ser lida de acordo com o valor do PC
         for(i; i <= linha; i++) {
             getline(arquivo, linhaASerLida);
             if (linhaASerLida.empty()) {
-                j++;
+                //j++;
                 infos.clear();
                 for(int p = 1; p <= 5; p++) {
                     infos.push_back("");
                 }
-                return j > 3;
-
             }
         }
     }
@@ -71,9 +68,17 @@ void LeituraASM::decode() {
 
     zerarRegsAuxs();
 
-    RAuxiliares[0] = stoi(passo_search.Op1);
-    RAuxiliares[1] = stoi(passo_search.Op2);
-    RAuxiliares[2] = stoi(passo_search.Op3);
+    if(passo_search.Op1.empty()){
+        RAuxiliares[0] = 0;
+        RAuxiliares[1] = 0;
+        RAuxiliares[2] = 0;
+    }else{
+
+        RAuxiliares[0] = stoi(passo_search.Op1);
+        RAuxiliares[1] = stoi(passo_search.Op2);
+        RAuxiliares[2] = stoi(passo_search.Op3);
+    }
+
 
     passo_decode = passo_search;
 

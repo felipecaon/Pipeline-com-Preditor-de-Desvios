@@ -28,6 +28,7 @@ private:
     int RAuxiliares[3] = {0};
     int R[32] = {0};
     int j = 0;
+    int i = 0;
 public:
 
     struct instr {
@@ -45,7 +46,7 @@ public:
     LeituraASM(const string &nomeArquivo);
 
     //recebe o valor da linha atual do arquivo
-    bool fetch(int linha, LeituraASM &arq);
+    void fetch(int linha, LeituraASM &arq);
 
     //ler strings da linha atual
     string lerDadosLinha(int posicao);
