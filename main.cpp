@@ -1,9 +1,6 @@
-#include <iostream>
-#include <iomanip>
 #include "LeituraASM.h"
 
 //variaveis globais
-int PC = 1; //linha 1
 int contAux = 1;
 
 int main() {
@@ -13,8 +10,8 @@ int main() {
     cout << setw(7) << "Fetch" << setw(14) << "Decode" << setw(14) << "Execute" << setw(14) << "Memory" << setw(14) << "WriteBack" << endl;
     cout << setw(7) << "-----------------------------------------------------------------" << endl;
 
-    while (contAux < 10) {
-        arquivo.fetch(PC,arquivo);
+    while (contAux < 12) {
+        arquivo.fetch(arquivo.getPC(),arquivo);
         cout << setw(7) << arquivo.passo_search.opCode << setw(14) << arquivo.passo_decode.opCode << setw(14) << arquivo.passo_execute.opCode << setw(14) << arquivo.passo_memory.opCode << setw(14) << arquivo.passo_register.opCode << endl;
         cout << setw(7) << "-----------------------------------------------------------------" << endl;
         arquivo.WriteBack();
@@ -22,8 +19,10 @@ int main() {
         arquivo.execute();
         arquivo.decode();
         contAux++;
-        PC++;
+        arquivo.setPC(arquivo.getPC()+1);
+
     }
+
 
     cout << "Instrucoes executadas: " << arquivo.getContadorInstr() << endl;
 
