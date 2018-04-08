@@ -27,8 +27,7 @@ public:
 private:
     int RAuxiliares[3] = {0};
     int R[32] = {0};
-    int j = 0;
-    int i = 0;
+    int i = 1;
 public:
 
     struct instr {

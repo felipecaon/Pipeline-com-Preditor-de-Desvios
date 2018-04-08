@@ -22,7 +22,7 @@ void LeituraASM::fetch(int linha, LeituraASM &arq) {
                 //j++;
                 infos.clear();
                 for(int p = 1; p <= 5; p++) {
-                    infos.push_back("");
+                    infos.emplace_back("");
                 }
             }
         }
@@ -68,12 +68,11 @@ void LeituraASM::decode() {
 
     zerarRegsAuxs();
 
-    if(passo_search.Op1.empty()){
+    if(passo_search.opCode.empty()){
         RAuxiliares[0] = 0;
         RAuxiliares[1] = 0;
         RAuxiliares[2] = 0;
     }else{
-
         RAuxiliares[0] = stoi(passo_search.Op1);
         RAuxiliares[1] = stoi(passo_search.Op2);
         RAuxiliares[2] = stoi(passo_search.Op3);

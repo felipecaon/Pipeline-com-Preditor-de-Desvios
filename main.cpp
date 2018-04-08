@@ -3,7 +3,7 @@
 #include "LeituraASM.h"
 
 //variaveis globais
-int PC = 0; //linha 1
+int PC = 1; //linha 1
 int contInstr = 0;
 
 int main() {
@@ -13,7 +13,7 @@ int main() {
     cout << setw(7) << "Fetch" << setw(14) << "Decode" << setw(14) << "Execute" << setw(14) << "Memory" << setw(14) << "WriteBack" << endl;
     cout << setw(7) << "-----------------------------------------------------------------" << endl;
 
-    while (contInstr < 8) {
+    while (contInstr < 9) {
         arquivo.fetch(PC,arquivo);
         cout << setw(7) << arquivo.passo_search.opCode << setw(14) << arquivo.passo_decode.opCode << setw(14) << arquivo.passo_execute.opCode << setw(14) << arquivo.passo_memory.opCode << setw(14) << arquivo.passo_register.opCode << endl;
         cout << setw(7) << "-----------------------------------------------------------------" << endl;
@@ -27,7 +27,7 @@ int main() {
 
     cout << "Instrucoes executadas: " << contInstr/2 << endl;
 
-    for(int i = 0; i <= 22; i++){
+    for(int i = 0; i <= 8; i++){
         cout << "R[" << i << "] - " << arquivo.getR()[i] << endl;
     }
 
