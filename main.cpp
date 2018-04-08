@@ -4,7 +4,7 @@
 
 //variaveis globais
 int PC = 1; //linha 1
-int contAux = 0;
+int contAux = 1;
 
 int main() {
 
@@ -13,7 +13,7 @@ int main() {
     cout << setw(7) << "Fetch" << setw(14) << "Decode" << setw(14) << "Execute" << setw(14) << "Memory" << setw(14) << "WriteBack" << endl;
     cout << setw(7) << "-----------------------------------------------------------------" << endl;
 
-    while (contAux < 9) {
+    while (contAux < 10) {
         arquivo.fetch(PC,arquivo);
         cout << setw(7) << arquivo.passo_search.opCode << setw(14) << arquivo.passo_decode.opCode << setw(14) << arquivo.passo_execute.opCode << setw(14) << arquivo.passo_memory.opCode << setw(14) << arquivo.passo_register.opCode << endl;
         cout << setw(7) << "-----------------------------------------------------------------" << endl;
