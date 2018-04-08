@@ -21,13 +21,12 @@ class LeituraASM {
     vector<string> infos;
     string nomeArquivo;
     string linhaASerLida;
-public:
-    void setLinhaASerLida(const string &linhaASerLida);
 
 private:
     int RAuxiliares[3] = {0};
     int R[32] = {0};
     int i = 1;
+    int contadorInstr = 0;
 public:
 
     struct instr {
@@ -65,6 +64,7 @@ public:
     //método auxiliares
     void zerarRegsAuxs();
     const int *getR() const;
+    int getContadorInstr() const;
 
 };
 

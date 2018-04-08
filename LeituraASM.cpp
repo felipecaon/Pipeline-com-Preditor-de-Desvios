@@ -130,8 +130,12 @@ void LeituraASM::memoria() {
 
 void LeituraASM::WriteBack() {
     passo_register = passo_memory;
+
+    if(!passo_register.opCode.empty()){
+        contadorInstr++;
+    }
 }
 
-void LeituraASM::setLinhaASerLida(const string &linhaASerLida) {
-    LeituraASM::linhaASerLida = linhaASerLida;
+int LeituraASM::getContadorInstr() const {
+    return contadorInstr;
 }
