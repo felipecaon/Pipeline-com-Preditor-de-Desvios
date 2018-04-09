@@ -54,10 +54,6 @@ void LeituraASM::fetch(int linha, LeituraASM &arq) {
         passo_search.Op3 = arq.lerDadosLinha(3);
     }
 
-    if(passo_search.opCode == "j"){
-
-    }
-
 }
 
 string LeituraASM::lerDadosLinha(int posicao) {
@@ -99,23 +95,23 @@ void LeituraASM::execute() {
     passo_execute = passo_decode;
 
     if (passo_execute.opCode == "daddi") {
-        //R[RAuxiliares[0]] = R[RAuxiliares[1]] + RAuxiliares[2];
         R[RAuxiliares[0]] = R[RAuxiliares[1]] + RAuxiliares[2];
     }
 
     if (passo_execute.opCode == "dsubi") {
-        //R[RAuxiliares[0]] = R[RAuxiliares[1]] + RAuxiliares[2];
         R[RAuxiliares[0]] = R[RAuxiliares[1]] - RAuxiliares[2];
     }
 
     if (passo_execute.opCode == "dadd") {
-        //R[RAuxiliares[0]] = R[RAuxiliares[1]] + RAuxiliares[2];
         R[RAuxiliares[0]] = R[RAuxiliares[1]] + R[RAuxiliares[2]];
     }
 
     if (passo_execute.opCode == "dsub") {
-        //R[RAuxiliares[0]] = R[RAuxiliares[1]] + RAuxiliares[2];
         R[RAuxiliares[0]] = R[RAuxiliares[1]] - R[RAuxiliares[2]];
+    }
+
+    if (passo_execute.opCode == "j") {
+         PC = RAuxiliares[0];
     }
 
 }
@@ -141,6 +137,7 @@ void LeituraASM::WriteBack() {
     if(!passo_register.opCode.empty()){
         contadorInstr++;
     }
+
 }
 
 int LeituraASM::getContadorInstr() const {
@@ -153,4 +150,8 @@ int LeituraASM::getPC() const {
 
 void LeituraASM::setPC(int PC) {
     LeituraASM::PC = PC;
+}
+
+const int *LeituraASM::getRAuxiliares() const {
+    return RAuxiliares;
 }

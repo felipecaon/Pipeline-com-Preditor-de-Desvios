@@ -19,8 +19,11 @@ int main() {
         arquivo.execute();
         arquivo.decode();
         contAux++;
-        arquivo.setPC(arquivo.getPC()+1);
-
+        if(arquivo.passo_search.opCode != "j"){
+            arquivo.setPC(arquivo.getPC()+1);
+        }else{
+            arquivo.setPC(arquivo.getRAuxiliares()[0]);
+        }
     }
 
 

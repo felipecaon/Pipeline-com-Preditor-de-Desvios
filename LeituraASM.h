@@ -23,6 +23,10 @@ class LeituraASM {
     string nomeArquivo;
     string linhaASerLida;
     int RAuxiliares[3] = {0};
+public:
+    const int *getRAuxiliares() const;
+
+private:
     int R[32] = {0};
     int i = 1;
     int contadorInstr = 0;
