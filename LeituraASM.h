@@ -72,6 +72,7 @@ public:
     int getContadorInstr() const;
     int getPC() const;
     void setPC(int PC);
+    void incrementarPC();
 };
 
 

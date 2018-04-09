@@ -19,10 +19,10 @@ int main() {
         arquivo.execute();
         arquivo.decode();
         contAux++;
-        if(arquivo.passo_search.opCode != "j"){
-            arquivo.setPC(arquivo.getPC()+1);
-        }else{
+        if(arquivo.passo_search.opCode == "j"){
             arquivo.setPC(arquivo.getRAuxiliares()[0]);
+        }else{
+            arquivo.incrementarPC();
         }
     }
 

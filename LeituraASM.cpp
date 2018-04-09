@@ -155,3 +155,7 @@ void LeituraASM::setPC(int PC) {
 const int *LeituraASM::getRAuxiliares() const {
     return RAuxiliares;
 }
+
+void LeituraASM::incrementarPC() {
+    PC++;
+}
