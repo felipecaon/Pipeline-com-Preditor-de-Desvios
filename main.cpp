@@ -24,7 +24,6 @@ int main() {
         }else{
             arquivo.incrementarPC();
         }
-       // arquivo.setIsBranch(false);
     }
 
 

@@ -143,6 +143,26 @@ void LeituraASM::execute() {
         return;
     }
 
+    if(passo_execute.opCode == "bnez"){
+        isBranch = true;
+        if(R[RAuxiliares[0]] != 0){
+            PCAux = RAuxiliares[1];
+        } else{
+            PCAux = PC + 4;
+        }
+        return;
+    }
+
+    if(passo_execute.opCode == "bne") {
+        isBranch = true;
+        if (R[RAuxiliares[0]] != R[RAuxiliares[1]]) {
+            PCAux = RAuxiliares[2];
+        } else {
+            PCAux = PC + 4;
+        }
+        return;
+    }
+
 }
 
 const int *LeituraASM::getR() const {
@@ -199,38 +219,6 @@ void LeituraASM::setIsBranch(bool isBranch) {
 
 void LeituraASM::PosChecagem() {
 
-    /*
-    if(passo_search.opCode == "j"){
-        PC = RAuxiliares[0];
-    }else if(passo_search.opCode == "beqz"){
-        if(R[RAuxiliares[0]] == 0){
-            PC = RAuxiliares[1];
-        } else{
-            PC = PC + 4;
-        }
-    }else if(passo_search.opCode == "bnez"){
-        if(R[RAuxiliares[0]] != 0){
-            PC = RAuxiliares[1];
-        } else{
-            PC = PC + 4;
-        }
-    }else if(passo_search.opCode == "beq"){
-        if(R[RAuxiliares[0]] == R[RAuxiliares[1]]){
-            PC = RAuxiliares[2];
-        } else{
-            PC = PC + 4;
-        }
-    }else if(passo_search.opCode == "bne"){
-        if(R[RAuxiliares[0]] != R[RAuxiliares[1]]){
-            PC = RAuxiliares[2];
-        } else{
-            PC = PC + 4;
-        }
-    }else{
-        incrementarPC();
-    }
-    */
-
     if(isBranch){
         passo_decode.opCode = "";
         passo_decode.Op1 = "";
@@ -239,7 +227,6 @@ void LeituraASM::PosChecagem() {
         RAuxiliares[0,1,2] = 0;
     }
     incrementarPC();
-
 
 }
 
