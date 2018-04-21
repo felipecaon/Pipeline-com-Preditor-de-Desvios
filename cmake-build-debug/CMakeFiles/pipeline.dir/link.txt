@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/pipeline.dir/main.cpp.o CMakeFiles/pipeline.dir/LeituraASM.cpp.o  -o pipeline 

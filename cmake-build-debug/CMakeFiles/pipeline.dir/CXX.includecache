@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/felipe/Documentos/pipeline/LeituraASM.cpp
+LeituraASM.h
+/home/felipe/Documentos/pipeline/LeituraASM.h
+
+/home/felipe/Documentos/pipeline/LeituraASM.h
+iostream
+/home/felipe/Documentos/pipeline/iostream
+string
+/home/felipe/Documentos/pipeline/string
+fstream
+/home/felipe/Documentos/pipeline/fstream
+sstream
+/home/felipe/Documentos/pipeline/sstream
+vector
+/home/felipe/Documentos/pipeline/vector
+algorithm
+/home/felipe/Documentos/pipeline/algorithm
+iterator
+/home/felipe/Documentos/pipeline/iterator
+iomanip
+/home/felipe/Documentos/pipeline/iomanip
+
+/home/felipe/Documentos/pipeline/main.cpp
+LeituraASM.h
+/home/felipe/Documentos/pipeline/LeituraASM.h
+

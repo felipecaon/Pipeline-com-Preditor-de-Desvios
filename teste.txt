@@ -1,0 +1,8 @@
+daddi 1, 0, 100
+daddi 4, 0, 20
+daddi 5, 0, 150
+dadd 2, 2, 4
+daddi 3, 3, 1
+beq 25, 26, 8
+j 4
+dadd 2, 2, 0

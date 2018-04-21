@@ -23,6 +23,7 @@ class LeituraASM {
     string nomeArquivo;
     string linhaASerLida;
     int RAuxiliares[3] = {0};
+    bool isBranch = false;
 public:
     const int *getRAuxiliares() const;
 
@@ -31,6 +32,7 @@ private:
     int i = 1;
     int contadorInstr = 0;
     int PC = 1;
+    int PCAux = PC;
 
 public:
 
@@ -73,7 +75,40 @@ public:
     int getPC() const;
     void setPC(int PC);
     void incrementarPC();
+
+    bool isIsBranch() const;
+
+    void setIsBranch(bool isBranch);
+
+    void PosChecagem();
+
+    int getPCAux() const;
 };
 
+
+/*
+ * main: 	addi 1, 0, 100
+		addi 4, 0, 20
+		addi 5, 0, 150
+loop:		add 2, 2, 4
+		addi 3, 3, 1
+		beq 3, 1, 8
+		j 4
+done1:	add 2, 2, 0
+parcial:	add 2, 2, 5
+		addi 6, 6, 1
+		beq 5, 6, 8
+		j 11
+done1:	add 2, 2, 0
+
+ daddi 2, 15, 30
+daddi 3, 2, 20
+beqz 8, 4
+dadd 6, 2, 3
+dadd 5, 2, 3
+dadd 6, 2, 2
+
+
+ */
 
 #endif //PREDITOR2_LEITURAASM_H
