@@ -123,6 +123,60 @@ void LeituraASM::execute() {
         return;
     }
 
+    if(!isPredicaoBimodalLigada()){
+        if(passo_execute.opCode == "beq") {
+            isBranch = true;
+            if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
+                PCAux = RAuxiliares[2];
+                predicaoCertaContador++;
+            } else {
+                PCAux = RAuxiliares[2];
+                predicaoCertaContador++;
+                predicaoErradaContador++;
+            }
+            return;
+        }
+
+        if(passo_execute.opCode == "beqz") {
+            isBranch = true;
+            if (R[RAuxiliares[0]] == 0) {
+                PCAux = RAuxiliares[1];
+                predicaoCertaContador++;
+            } else {
+                PCAux = RAuxiliares[2];
+                predicaoCertaContador++;
+                predicaoErradaContador++;
+            }
+            return;
+        }
+
+        if(passo_execute.opCode == "bnez"){
+            isBranch = true;
+            if(R[RAuxiliares[0]] != 0){
+                PCAux = RAuxiliares[1];
+                predicaoCertaContador++;
+            } else{
+                PCAux = RAuxiliares[2];
+                predicaoCertaContador++;
+                predicaoErradaContador++;
+            }
+            return;
+        }
+
+        if(passo_execute.opCode == "bne") {
+            isBranch = true;
+            if (R[RAuxiliares[0]] != R[RAuxiliares[1]]) {
+                PCAux = RAuxiliares[2];
+                predicaoCertaContador++;
+            } else {
+                PCAux = RAuxiliares[2];
+                predicaoCertaContador++;
+                predicaoErradaContador++;
+            }
+            return;
+        }
+    }
+
     if(passo_execute.opCode == "beq") {
         isBranch = true;
         if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
@@ -201,10 +255,6 @@ void LeituraASM::setPC(int PC) {
     LeituraASM::PC = PC;
 }
 
-const int *LeituraASM::getRAuxiliares() const {
-    return RAuxiliares;
-}
-
 void LeituraASM::incrementarPC() {
     PC++;
 }
@@ -219,19 +269,39 @@ void LeituraASM::setIsBranch(bool isBranch) {
 
 void LeituraASM::PosChecagem() {
 
-    if(isBranch){
-        passo_decode.opCode = "";
-        passo_decode.Op1 = "";
-        passo_decode.Op2 = "";
-        passo_decode.Op3 = "";
-        RAuxiliares[0,1,2] = 0;
-    }
+
+    passo_decode.opCode = "";
+    passo_decode.Op1 = "";
+    passo_decode.Op2 = "";
+    passo_decode.Op3 = "";
+    RAuxiliares[0,1,2] = 0;
+
     incrementarPC();
 
 }
 
 int LeituraASM::getPCAux() const {
     return PCAux;
+}
+
+bool LeituraASM::isPredicaoBimodalLigada() const {
+    return predicaoBimodalLigada;
+}
+
+int LeituraASM::getPredicaoCertaContador() const {
+    return predicaoCertaContador;
+}
+
+int LeituraASM::getPredicaoErradaContador() const {
+    return predicaoErradaContador;
+}
+
+void LeituraASM::mostrarEstatisticas() {
+    cout << "Instrucoes executadas: " << getContadorInstr() << endl;
+    cout << "Predicoes Corretas: " << getPredicaoCertaContador() << endl;
+    cout << "Predicoes Erradas: " << getPredicaoErradaContador() << endl;
+    cout << "Instrucoes Invalidas: " << getPredicaoErradaContador() << endl;
+    cout << endl;
 }
 
 

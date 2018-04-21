@@ -24,8 +24,10 @@ class LeituraASM {
     string linhaASerLida;
     int RAuxiliares[3] = {0};
     bool isBranch = false;
-public:
-    const int *getRAuxiliares() const;
+    bool predicaoBimodalLigada = false;
+    int predicaoCertaContador = 0;
+    int predicaoErradaContador = 0;
+    int predicaErrada;
 
 private:
     int R[32] = {0};
@@ -83,32 +85,15 @@ public:
     void PosChecagem();
 
     int getPCAux() const;
+
+    bool isPredicaoBimodalLigada() const;
+
+    void mostrarEstatisticas();
+
+    int getPredicaoCertaContador() const;
+
+    int getPredicaoErradaContador() const;
 };
 
-
-/*
- * main: 	addi 1, 0, 100
-		addi 4, 0, 20
-		addi 5, 0, 150
-loop:		add 2, 2, 4
-		addi 3, 3, 1
-		beq 3, 1, 8
-		j 4
-done1:	add 2, 2, 0
-parcial:	add 2, 2, 5
-		addi 6, 6, 1
-		beq 5, 6, 8
-		j 11
-done1:	add 2, 2, 0
-
- daddi 2, 15, 30
-daddi 3, 2, 20
-beqz 8, 4
-dadd 6, 2, 3
-dadd 5, 2, 3
-dadd 6, 2, 2
-
-
- */
 
 #endif //PREDITOR2_LEITURAASM_H
