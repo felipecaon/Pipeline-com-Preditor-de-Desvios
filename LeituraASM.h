@@ -18,6 +18,8 @@
 using namespace std;
 
 class LeituraASM {
+
+    string dir = ("/home/felipe/Documentos/pipeline/teste.txt");
     ifstream arquivo;
     vector<string> infos;
     string nomeArquivo;
@@ -51,6 +53,8 @@ public:
 
     //construtor que abre o arquivo
     LeituraASM(const string &nomeArquivo);
+
+    LeituraASM();
 
     //recebe o valor da linha atual do arquivo
     void fetch(int linha, LeituraASM &arq);
@@ -93,6 +97,11 @@ public:
     int getPredicaoCertaContador() const;
 
     int getPredicaoErradaContador() const;
+
+
+    void zerarAuxiliares();
+
+    const string &getDir() const;
 };
 
 

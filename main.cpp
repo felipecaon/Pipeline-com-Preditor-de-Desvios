@@ -5,12 +5,14 @@ int contAux = 1;
 
 int main() {
 
-    LeituraASM arquivo("/home/felipe/Documentos/pipeline/teste.txt");
+
+    LeituraASM arquivo;
 
     cout << setw(7) << "Fetch" << setw(14) << "Decode" << setw(14) << "Execute" << setw(14) << "Memory" << setw(14) << "WriteBack" << endl;
     cout << setw(7) << "-----------------------------------------------------------------" << endl;
 
-    while (contAux < 12) {
+    while (contAux < 30) {
+
         arquivo.fetch(arquivo.getPC(),arquivo);
         cout << setw(7) << arquivo.passo_search.opCode << setw(14) << arquivo.passo_decode.opCode << setw(14) << arquivo.passo_execute.opCode << setw(14) << arquivo.passo_memory.opCode << setw(14) << arquivo.passo_register.opCode << endl;
         cout << setw(7) << "-----------------------------------------------------------------" << endl;
@@ -24,6 +26,11 @@ int main() {
         }else{
             arquivo.incrementarPC();
         }
+
+        if(arquivo.passo_execute.opCode == "j"){
+            arquivo.zerarRegsAuxs();
+        }
+
     }
 
 

@@ -14,19 +14,27 @@ const string &LeituraASM::getLinhaASerLida() const {
 }
 
 void LeituraASM::fetch(int linha, LeituraASM &arq) {
-    if (arquivo.is_open()) {
-        //busca linha a ser lida de acordo com o valor do PC
-        for(i; i <= linha; i++) {
+
+    arquivo.close();
+    arquivo.open(dir);
+
+    if(i >= linha){
+        linha = i;
+    }
+
+    if(arquivo.is_open()) {
+        for (int i = 1; i <= linha; i++) {
             getline(arquivo, linhaASerLida);
             if (linhaASerLida.empty()) {
                 //j++;
                 infos.clear();
-                for(int p = 1; p <= 5; p++) {
+                for (int p = 1; p <= 5; p++) {
                     infos.emplace_back("");
                 }
             }
         }
     }
+
     if (!linhaASerLida.empty()) {
         istringstream iss(getLinhaASerLida());
 
@@ -98,6 +106,7 @@ void LeituraASM::execute() {
 
     passo_execute = passo_decode;
 
+
     if (passo_execute.opCode == "daddi") {
         R[RAuxiliares[0]] = R[RAuxiliares[1]] + RAuxiliares[2];
         return;
@@ -119,7 +128,7 @@ void LeituraASM::execute() {
     }
 
     if (passo_execute.opCode == "j") {
-         PC = RAuxiliares[0];
+         PC = RAuxiliares[0] - 1;
         return;
     }
 
@@ -128,11 +137,9 @@ void LeituraASM::execute() {
             isBranch = true;
             if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
                 PCAux = RAuxiliares[2];
-                predicaoCertaContador++;
-            } else {
-                PCAux = RAuxiliares[2];
-                predicaoCertaContador++;
                 predicaoErradaContador++;
+            } else {
+                predicaoCertaContador++;
             }
             return;
         }
@@ -140,11 +147,9 @@ void LeituraASM::execute() {
         if(passo_execute.opCode == "beqz") {
             isBranch = true;
             if (R[RAuxiliares[0]] == 0) {
-                PCAux = RAuxiliares[1];
                 predicaoCertaContador++;
+                predicaoErradaContador++;
             } else {
-                PCAux = RAuxiliares[2];
-                predicaoCertaContador++;
                 predicaoErradaContador++;
             }
             return;
@@ -153,11 +158,9 @@ void LeituraASM::execute() {
         if(passo_execute.opCode == "bnez"){
             isBranch = true;
             if(R[RAuxiliares[0]] != 0){
-                PCAux = RAuxiliares[1];
                 predicaoCertaContador++;
+                predicaoErradaContador++;
             } else{
-                PCAux = RAuxiliares[2];
-                predicaoCertaContador++;
                 predicaoErradaContador++;
             }
             return;
@@ -166,11 +169,9 @@ void LeituraASM::execute() {
         if(passo_execute.opCode == "bne") {
             isBranch = true;
             if (R[RAuxiliares[0]] != R[RAuxiliares[1]]) {
-                PCAux = RAuxiliares[2];
                 predicaoCertaContador++;
+                predicaoErradaContador++;
             } else {
-                PCAux = RAuxiliares[2];
-                predicaoCertaContador++;
                 predicaoErradaContador++;
             }
             return;
@@ -280,6 +281,8 @@ void LeituraASM::PosChecagem() {
 
 }
 
+
+
 int LeituraASM::getPCAux() const {
     return PCAux;
 }
@@ -304,4 +307,9 @@ void LeituraASM::mostrarEstatisticas() {
     cout << endl;
 }
 
+const string &LeituraASM::getDir() const {
+    return dir;
+}
+
+LeituraASM::LeituraASM() {}
 
