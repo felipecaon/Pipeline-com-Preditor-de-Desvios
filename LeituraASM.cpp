@@ -214,7 +214,6 @@ void LeituraASM::execute() {
                 }else{
                     predicaoErradaContador++;
                 }
-                PCAux = RAuxiliares[2];
             } else {
                 if(naoSeraTomado){
                     predicaoCertaContador++;
@@ -241,7 +240,6 @@ void LeituraASM::execute() {
                 }else{
                     predicaoErradaContador++;
                 }
-                PCAux = RAuxiliares[2];
             } else {
                 if(naoSeraTomado){
                     predicaoCertaContador++;
@@ -268,7 +266,6 @@ void LeituraASM::execute() {
                 }else{
                     predicaoErradaContador++;
                 }
-                PCAux = RAuxiliares[2];
             } else {
                 if(naoSeraTomado){
                     predicaoCertaContador++;

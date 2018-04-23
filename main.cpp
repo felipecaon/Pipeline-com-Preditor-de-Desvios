@@ -14,7 +14,7 @@ int main() {
     cout << setw(7) << "Fetch" << setw(14) << "Decode" << setw(14) << "Execute" << setw(14) << "Memory" << setw(14) << "WriteBack" << endl;
     cout << setw(7) << "-----------------------------------------------------------------" << endl;
 
-    while (contAux < 1260) {
+    while (contAux < 25) {
 
         arquivo.fetch(arquivo.getPC(),arquivo);
         cout << setw(7) << arquivo.passo_search.opCode << setw(14) << arquivo.passo_decode.opCode << setw(14) << arquivo.passo_execute.opCode << setw(14) << arquivo.passo_memory.opCode << setw(14) << arquivo.passo_register.opCode << endl;

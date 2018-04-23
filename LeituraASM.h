@@ -91,5 +91,20 @@ public:
 
 };
 
-
+/*
+ * daddi 1, 0, 100
+daddi 4, 0, 20
+daddi 5, 0, 150
+dadd 2, 2, 4
+daddi 3, 3, 1
+beq 3, 1, 8
+j 4
+dadd 2, 0, 2
+dadd 2, 2, 5
+daddi 6, 6, 1
+beq 5, 6, 13
+j 9
+dadd 2, 2, 0
+daddi 8, 0, 152
+ */
 #endif //PREDITOR2_LEITURAASM_H
