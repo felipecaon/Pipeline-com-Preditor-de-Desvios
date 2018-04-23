@@ -29,13 +29,14 @@ class LeituraASM {
     bool predicaoBimodalLigada = false;
     int predicaoCertaContador = 0;
     int predicaoErradaContador = 0;
-
-private:
+    bool seraTomado = false;
+    bool naoSeraTomado = false;
     int R[32] = {0};
     int i = 1;
     int contadorInstr = 0;
     int PC = 1;
     int PCAux = PC;
+    short int contadorBimodal = 0;
 
 public:
 
@@ -77,18 +78,16 @@ public:
     int getContadorInstr() const;
     int getPC() const;
     void incrementarPC();
-
     void PosChecagem();
-
     int getPCAux() const;
-
     bool isPredicaoBimodalLigada() const;
 
+    void setPredicaoBimodalLigada(bool predicaoBimodalLigada);
+
     void mostrarEstatisticas();
-
     int getPredicaoCertaContador() const;
-
     int getPredicaoErradaContador() const;
+    void ativarContadorBimodal();
 
 };
 

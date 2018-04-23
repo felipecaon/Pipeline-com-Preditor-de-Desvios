@@ -145,10 +145,10 @@ void LeituraASM::execute() {
         if(passo_execute.opCode == "beqz") {
             isBranch = true;
             if (R[RAuxiliares[0]] == 0) {
-                predicaoCertaContador++;
+                PCAux = RAuxiliares[1];
                 predicaoErradaContador++;
             } else {
-                predicaoErradaContador++;
+                predicaoCertaContador++;
             }
             return;
         }
@@ -156,10 +156,10 @@ void LeituraASM::execute() {
         if(passo_execute.opCode == "bnez"){
             isBranch = true;
             if(R[RAuxiliares[0]] != 0){
-                predicaoCertaContador++;
+                PCAux = RAuxiliares[1];
                 predicaoErradaContador++;
             } else{
-                predicaoErradaContador++;
+                predicaoCertaContador++;
             }
             return;
         }
@@ -167,53 +167,123 @@ void LeituraASM::execute() {
         if(passo_execute.opCode == "bne") {
             isBranch = true;
             if (R[RAuxiliares[0]] != R[RAuxiliares[1]]) {
-                predicaoCertaContador++;
+                PCAux = RAuxiliares[2];
                 predicaoErradaContador++;
             } else {
-                predicaoErradaContador++;
+                predicaoCertaContador++;
             }
             return;
         }
-    }
+    }else{
 
-    if(passo_execute.opCode == "beq") {
-        isBranch = true;
-        if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
-            PCAux = RAuxiliares[2];
-        } else {
-            PCAux = PC + 4;
-        }
-        return;
-    }
+        ativarContadorBimodal();
 
-    if(passo_execute.opCode == "beqz") {
-        isBranch = true;
-        if (R[RAuxiliares[0]] == 0) {
-            PCAux = RAuxiliares[1];
-        } else {
-            PCAux = PC + 4;
+        if(passo_execute.opCode == "beq") {
+            isBranch = true;
+            if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
+                contadorBimodal++;
+                if(seraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                PCAux = RAuxiliares[2];
+            } else {
+                if(naoSeraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                if(contadorBimodal <= 0){
+                    contadorBimodal = 0;
+                }else{
+                    contadorBimodal--;
+                }
+                //PCAux = PC + 4;
+            }
+            return;
         }
-        return;
-    }
 
-    if(passo_execute.opCode == "bnez"){
-        isBranch = true;
-        if(R[RAuxiliares[0]] != 0){
-            PCAux = RAuxiliares[1];
-        } else{
-            PCAux = PC + 4;
+        if(passo_execute.opCode == "beqz") {
+            isBranch = true;
+            if (R[RAuxiliares[0]] == 0) {
+                PCAux = RAuxiliares[1];
+                contadorBimodal++;
+                if(seraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                PCAux = RAuxiliares[2];
+            } else {
+                if(naoSeraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                if(contadorBimodal <= 0){
+                    contadorBimodal = 0;
+                }else{
+                    contadorBimodal--;
+                }
+                //PCAux = PC + 4;
+            }
+            return;
         }
-        return;
-    }
 
-    if(passo_execute.opCode == "bne") {
-        isBranch = true;
-        if (R[RAuxiliares[0]] != R[RAuxiliares[1]]) {
-            PCAux = RAuxiliares[2];
-        } else {
-            PCAux = PC + 4;
+        if(passo_execute.opCode == "bnez"){
+            isBranch = true;
+            if(R[RAuxiliares[0]] != 0){
+                PCAux = RAuxiliares[1];
+                contadorBimodal++;
+                if(seraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                PCAux = RAuxiliares[2];
+            } else {
+                if(naoSeraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                if(contadorBimodal <= 0){
+                    contadorBimodal = 0;
+                }else{
+                    contadorBimodal--;
+                }
+                //PCAux = PC + 4;
+            }
+            return;
         }
-        return;
+
+        if(passo_execute.opCode == "bne") {
+            isBranch = true;
+            if (R[RAuxiliares[0]] != R[RAuxiliares[1]]) {
+                PCAux = RAuxiliares[2];
+                contadorBimodal++;
+                if(seraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                PCAux = RAuxiliares[2];
+            } else {
+                if(naoSeraTomado){
+                    predicaoCertaContador++;
+                }else{
+                    predicaoErradaContador++;
+                }
+                if(contadorBimodal <= 0){
+                    contadorBimodal = 0;
+                }else{
+                    contadorBimodal--;
+                }
+                //PCAux = PC + 4;
+            }
+            return;
+        }
     }
 
 }
@@ -297,4 +367,22 @@ void LeituraASM::mostrarEstatisticas() {
 
 
 LeituraASM::LeituraASM() {}
+
+void LeituraASM::ativarContadorBimodal() {
+
+    if(contadorBimodal > 3){
+        contadorBimodal = 0;
+    }
+
+    if(contadorBimodal == 0 || contadorBimodal == 1){
+        naoSeraTomado = true;
+    }else if(contadorBimodal == 2 || contadorBimodal == 3){
+       seraTomado = true;
+    }
+
+}
+
+void LeituraASM::setPredicaoBimodalLigada(bool predicaoBimodalLigada) {
+    LeituraASM::predicaoBimodalLigada = predicaoBimodalLigada;
+}
 
