@@ -29,7 +29,6 @@ class LeituraASM {
     bool predicaoBimodalLigada = false;
     int predicaoCertaContador = 0;
     int predicaoErradaContador = 0;
-    int predicaErrada;
 
 private:
     int R[32] = {0};
@@ -41,9 +40,7 @@ private:
 public:
 
     struct instr {
-        bool hasLabel = false;
         string opCode = "", Op1, Op2, Op3;
-        bool valido = true;
     } passo_search, passo_decode, passo_execute, passo_memory, passo_register;
 
 
@@ -79,12 +76,7 @@ public:
     const int *getR() const;
     int getContadorInstr() const;
     int getPC() const;
-    void setPC(int PC);
     void incrementarPC();
-
-    bool isIsBranch() const;
-
-    void setIsBranch(bool isBranch);
 
     void PosChecagem();
 
@@ -98,10 +90,6 @@ public:
 
     int getPredicaoErradaContador() const;
 
-
-    void zerarAuxiliares();
-
-    const string &getDir() const;
 };
 
 

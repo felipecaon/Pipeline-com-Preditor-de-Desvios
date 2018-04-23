@@ -49,13 +49,11 @@ void LeituraASM::fetch(int linha, LeituraASM &arq) {
     }
 
     if (arq.lerDadosLinha(0).find(':') != string::npos) {
-        passo_search.hasLabel = true;
         passo_search.opCode = arq.lerDadosLinha(1);
         passo_search.Op1 = arq.lerDadosLinha(2);
         passo_search.Op2 = arq.lerDadosLinha(3);
         passo_search.Op3 = arq.lerDadosLinha(4);
     } else {
-        passo_search.hasLabel = false;
         passo_search.opCode = arq.lerDadosLinha(0);
         passo_search.Op1 = arq.lerDadosLinha(1);
         passo_search.Op2 = arq.lerDadosLinha(2);
@@ -252,21 +250,11 @@ int LeituraASM::getPC() const {
     return PC;
 }
 
-void LeituraASM::setPC(int PC) {
-    LeituraASM::PC = PC;
-}
 
 void LeituraASM::incrementarPC() {
     PC++;
 }
 
-bool LeituraASM::isIsBranch() const {
-    return isBranch;
-}
-
-void LeituraASM::setIsBranch(bool isBranch) {
-    LeituraASM::isBranch = isBranch;
-}
 
 void LeituraASM::PosChecagem() {
 
@@ -307,9 +295,6 @@ void LeituraASM::mostrarEstatisticas() {
     cout << endl;
 }
 
-const string &LeituraASM::getDir() const {
-    return dir;
-}
 
 LeituraASM::LeituraASM() {}
 
