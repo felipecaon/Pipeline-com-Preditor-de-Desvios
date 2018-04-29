@@ -20,15 +20,21 @@ using namespace std;
 class LeituraASM {
 
     string dir = ("/home/felipe/Documentos/pipeline/teste.txt");
+    string dirPred = ("/home/felipe/Documentos/pipeline/predictiontable.txt");
     ifstream arquivo;
     vector<string> infos;
     string nomeArquivo;
     string linhaASerLida;
+    string linhaASerLidaPCAux;
+    int resposta;
     int RAuxiliares[3] = {0};
     bool isBranch = false;
     bool predicaoBimodalLigada = false;
     int predicaoCertaContador = 0;
     int predicaoErradaContador = 0;
+    int predicaoTomada = 0;
+    int predicaoNaoTomada = 0;
+    int instrucoesInvalidas = 0;
     bool seraTomado = false;
     bool naoSeraTomado = false;
     int R[32] = {0};
@@ -36,7 +42,15 @@ class LeituraASM {
     int contadorInstr = 0;
     int PC = 1;
     int PCAux = PC;
+    int PCAuxAux = 0;
+public:
+    int getPCAuxAux() const;
+
+    void setPCAuxAux(int PCAuxAux);
+
+private:
     short int contadorBimodal = 0;
+    bool corretor = false;
 
 public:
 
@@ -72,6 +86,8 @@ public:
     //escreve o resultado da operação no registrador final
     void WriteBack();
 
+    void abrirPredTableEProcurarPC(int PCAuxAux, LeituraASM &arq);
+
     //método auxiliares
     void zerarRegsAuxs();
     const int *getR() const;
@@ -87,7 +103,9 @@ public:
     void mostrarEstatisticas();
     int getPredicaoCertaContador() const;
     int getPredicaoErradaContador() const;
+
     void ativarContadorBimodal();
+
 
 };
 

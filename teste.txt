@@ -1,16 +1,13 @@
-daddi    1, 0, 30
-daddi    2, 0, 29
-dadd     31, 30, 21
-bne      27, 26, 2
-dsub     24, 25, 4
-dadd     31, 30, 22
-beq      24, 25, 1
-dsub     24, 25, 4
-dadd     31, 30, 22
-beq      27, 28, 5
-dadd     31, 2, 10
-bnez     0, 2
-dadd     31, 3, 9
-daddi    4, 0, 11
-daddi    5, 0, 13
-
+daddi 1, 0, 100
+daddi 4, 0, 20
+daddi 5, 0, 150
+dadd 2, 2, 1
+daddi 3, 3, 50
+beq 3, 1, 8
+j 4
+dadd 2, 0, 2
+dadd 2, 2, 5
+daddi 6, 6, 30
+beq 5, 6, 13
+j 9
+dadd 2, 2, 0

@@ -135,9 +135,9 @@ void LeituraASM::execute() {
             isBranch = true;
             if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
                 PCAux = RAuxiliares[2];
-                predicaoErradaContador++;
-            } else {
                 predicaoCertaContador++;
+            } else {
+                predicaoErradaContador++;
             }
             return;
         }
@@ -176,28 +176,46 @@ void LeituraASM::execute() {
         }
     }else{
 
-        ativarContadorBimodal();
+
+        if(passo_execute.opCode == "beq" || passo_execute.opCode == "bne" ||
+                passo_execute.opCode == "beqz" || passo_execute.opCode == "bnez") {
+            LeituraASM arquivoPred;
+
+            abrirPredTableEProcurarPC(PCAuxAux, arquivoPred);
+
+
+            switch (resposta) {
+                case 0 :
+                    predicaoNaoTomada++;
+                    break;
+                case 1 :
+                    predicaoNaoTomada++;
+                    break;
+                case 2 :
+                    predicaoTomada++;
+                    break;
+                case 3 :
+                    predicaoTomada++;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         if(passo_execute.opCode == "beq") {
             isBranch = true;
             if (R[RAuxiliares[0]] == R[RAuxiliares[1]]) {
-                contadorBimodal++;
-                if(seraTomado){
+                if(resposta == 2 || resposta == 3){
                     predicaoCertaContador++;
                 }else{
                     predicaoErradaContador++;
                 }
                 PCAux = RAuxiliares[2];
             } else {
-                if(naoSeraTomado){
-                    predicaoCertaContador++;
-                }else{
+                if(resposta == 2 || resposta == 3){
                     predicaoErradaContador++;
-                }
-                if(contadorBimodal <= 0){
-                    contadorBimodal = 0;
                 }else{
-                    contadorBimodal--;
+                    predicaoCertaContador++;
                 }
                 //PCAux = PC + 4;
             }
@@ -356,9 +374,11 @@ int LeituraASM::getPredicaoErradaContador() const {
 
 void LeituraASM::mostrarEstatisticas() {
     cout << "Instrucoes executadas: " << getContadorInstr() << endl;
-    cout << "Predicoes Corretas: " << getPredicaoCertaContador() << endl;
-    cout << "Predicoes Erradas: " << getPredicaoErradaContador() << endl;
-    cout << "Instrucoes Invalidas: " << getPredicaoErradaContador() << endl;
+    cout << "Predicoes Corretas: " << predicaoCertaContador << endl;
+    cout << "Predicoes Erradas: " << predicaoErradaContador << endl;
+    cout << "Predito como tomado: " << predicaoTomada << endl;
+    cout << "Predito como nao tomado: " << predicaoNaoTomada << endl;
+
     cout << endl;
 }
 
@@ -381,5 +401,32 @@ void LeituraASM::ativarContadorBimodal() {
 
 void LeituraASM::setPredicaoBimodalLigada(bool predicaoBimodalLigada) {
     LeituraASM::predicaoBimodalLigada = predicaoBimodalLigada;
+}
+
+void LeituraASM::abrirPredTableEProcurarPC(int PCAuxAux, LeituraASM &arq){
+
+    arquivo.close();
+    arquivo.open(dirPred);
+
+
+    if(arquivo.is_open()) {
+        for (int p = 1; p <= PCAuxAux; p++) {
+            getline(arquivo, linhaASerLidaPCAux);
+        }
+    }
+
+    resposta =  stoi(linhaASerLidaPCAux);
+
+    arquivo.close();
+
+
+}
+
+int LeituraASM::getPCAuxAux() const {
+    return PCAuxAux;
+}
+
+void LeituraASM::setPCAuxAux(int PCAuxAux) {
+    LeituraASM::PCAuxAux = PCAuxAux;
 }
 
